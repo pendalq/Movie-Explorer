@@ -17,4 +17,17 @@ public class MovieController {
 	public List<MovieDto> getRecMovie(String title){
 		return movieService.getRecMovie(title);
 	}
+	
+	public List<MovieDto> getGradeRankList(){
+		return movieService.getGradeRankingList();
+	}
+	
+	public List<MovieDto> getGoodpointRankList(){
+		return movieService.getGoodpointRankingList();
+	}
+	
+	public List<MovieDto> nowScreening(){ // 현재상영작출력
+		return movieService.nowScreening();
+	}
+
 }

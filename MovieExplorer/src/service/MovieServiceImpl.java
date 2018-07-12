@@ -10,5 +10,10 @@ public interface MovieServiceImpl {
 	
 	public List<MovieDto> getRecMovie(String title);
 	
+	public List<MovieDto> getGradeRankingList();
+	
+	public List<MovieDto> getGoodpointRankingList();
+	
+	public List<MovieDto> nowScreening(); // 현재상영작출력
 	
 }
