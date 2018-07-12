@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Choice;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.TextArea;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -18,13 +20,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class movieDetailView extends JFrame implements MouseListener {
 
-	JLabel imglabel, label1, label2, label3, label4, label5, label6, label7, label8, label9, slabel1, slabel2, slabel3,
-			slabel4, slabel5, slabel6;
-	JButton mbtn1, mbtn2, mbtn3,
-	reviewBtn, button;
+	JLabel imglabel,
+	titlelabel1, titlelabel12, gradeLabel1,gradeLabel2,actorlabel1,actorName1,actorName2,actorName3,actorName4,
+	setgradeLabel, label1, directorlabel1,directorlabel2,genrelabel1,genrelabel2,
+	recLabel,rmovieLabel; 
+	JButton rmoviebtn1, rmoviebtn2, rmoviebtn3,setgradebtn,
+	reviewBtn;
 	Choice cho;
 	JTable jTable;
-	JScrollPane jScrPane;
+	JScrollPane jScrPane1, jScrpane2;
 	
 	
 	String columnNames[] = {
@@ -45,25 +49,25 @@ public class movieDetailView extends JFrame implements MouseListener {
 		imglabel.setBounds(10, 20, 190, 200);
 		add(imglabel);
 
-		label1 = new JLabel("영화 제목 :");
-		label1.setBounds(230, 10, 65, 40);
-		add(label1);
+		titlelabel1 = new JLabel("영화 제목 :");
+		titlelabel1.setBounds(230, 10, 65, 40);
+		add(titlelabel1);
 		
-		slabel1 = new JLabel("1");
-		slabel1.setBounds(300, 10, 100, 40);
-		add(slabel1);
+		titlelabel12 = new JLabel("1");
+		titlelabel12.setBounds(300, 10, 100, 40);
+		add(titlelabel12);
 		
-		label2 = new JLabel("평점 :");
-		label2.setBounds(230, 40, 40, 40);
-		add(label2);
+		gradeLabel1 = new JLabel("평점 :");
+		gradeLabel1.setBounds(230, 40, 40, 40);
+		add(gradeLabel1);
 		
-		slabel2 = new JLabel("1");
-		slabel2.setBounds(280, 40, 60, 40);
-		add(slabel2);
+		gradeLabel2 = new JLabel("1");
+		gradeLabel2.setBounds(280, 40, 60, 40);
+		add(gradeLabel2);
 
-		label3 = new JLabel("평점 주기 :");
-		label3.setBounds(430, 40, 65, 40);
-		add(label3);
+		setgradeLabel = new JLabel("평점 주기 :");
+		setgradeLabel.setBounds(430, 40, 65, 40);
+		add(setgradeLabel);
 		
 		cho = new Choice();
 		cho.setBounds(505, 50, 60, 60);
@@ -74,47 +78,62 @@ public class movieDetailView extends JFrame implements MouseListener {
 		cho.add("5");
 		add(cho);
 		
-		button = new JButton("확인");
-		button.setBounds(570, 50, 60, 25);
-		button.setFocusPainted(false);
-		add(button);
+		setgradebtn = new JButton("확인");
+		setgradebtn.setBounds(570, 50, 60, 25);
+		setgradebtn.setFocusPainted(false);
+		add(setgradebtn);
 
-		label4 = new JLabel("(1~5 점)");
-		label4.setBounds(430, 55, 60, 40);
-		add(label4);
+		label1 = new JLabel("(1~5 점)");
+		label1.setBounds(430, 55, 60, 40);
+		add(label1);
 
-		label5 = new JLabel("감독 :");
-		label5.setBounds(230, 80, 40, 40);
-		add(label5);
+		directorlabel1 = new JLabel("감독 :");
+		directorlabel1.setBounds(230, 80, 40, 40);
+		add(directorlabel1);
 		
-		slabel3 = new JLabel("1");
-		slabel3.setBounds(280, 80, 100, 40);
-		add(slabel3);
+		directorlabel2 = new JLabel("1");
+		directorlabel2.setBounds(280, 80, 100, 40);
+		add(directorlabel2);
 		
-		label6 = new JLabel("장르 :");
-		label6.setBounds(430, 80, 40, 40);
-		add(label6);
+		genrelabel1 = new JLabel("장르 :");
+		genrelabel1.setBounds(430, 80, 40, 40);
+		add(genrelabel1);
 		
-		slabel4 = new JLabel("1");
-		slabel4.setBounds(480, 80, 100, 40);
-		add(slabel4);
+		genrelabel2 = new JLabel("1");
+		genrelabel2.setBounds(480, 80, 100, 40);
+		add(genrelabel2);
 		
 		
-		label7 = new JLabel("배우 :");
-		label7.setBounds(230, 120, 40, 40);
-		add(label7);
+		actorlabel1 = new JLabel("배우 :");
+		actorlabel1.setBounds(230, 120, 40, 40);
+		add(actorlabel1);
 		
-		slabel5 = new JLabel("1");
-		slabel5.setBounds(280, 120, 150, 40);
-		add(slabel5);
+		actorName1 = new JLabel("1");
+		
+		actorName2 = new JLabel("1");
+		
+		actorName3 = new JLabel("1");
+		
+		actorName4 = new JLabel("1");
+		
+		JPanel actorName = new JPanel();
+		actorName.add(actorName1);
+		actorName.add(actorName2);
+		actorName.add(actorName3);
+		actorName.add(actorName4);
+		actorName.setLayout(new FlowLayout());
+		actorName.setBounds(280, 130, 350, 50);
+		actorName.setBorder(new LineBorder(Color.black));
+		add(actorName);
+		
+		
+		rmovieLabel = new JLabel(" * 관련 영화");
+		rmovieLabel.setBounds(10, 250, 100, 40);
+		add(rmovieLabel);
 
-		label8 = new JLabel(" * 관련 영화");
-		label8.setBounds(10, 250, 100, 40);
-		add(label8);
-
-		label9 = new JLabel(" * 추천 리뷰");
-		label9.setBounds(10, 520, 100, 40);
-		add(label9);
+		recLabel = new JLabel(" * 추천 리뷰");
+		recLabel.setBounds(10, 520, 100, 40);
+		add(recLabel);
 		
 		
 		//스토리
@@ -122,31 +141,36 @@ public class movieDetailView extends JFrame implements MouseListener {
 		jta.setEditable(false);
 		jta.setText("스토리 : ");
 		jta.setBackground(Color.PINK);
-		jta.setBounds(230, 180, 400, 50);
-		add(jta);
 		setBackground(Color.PINK);
-
+		
+		jScrpane2 = new JScrollPane(jta);
+		jScrpane2.setBounds(230, 200, 400, 65);
+		add(jScrpane2);
+		
+		
+		
+		
 		//관련영화
-		mbtn1 = new JButton("영화이름");
-		mbtn1.setBounds(40, 300, 190, 200);
-		mbtn1.setBorderPainted(true);
-		mbtn1.setContentAreaFilled(false);
-		mbtn1.setFocusPainted(false);
-		add(mbtn1);
+		rmoviebtn1 = new JButton("영화이름");
+		rmoviebtn1.setBounds(40, 300, 190, 200);
+		rmoviebtn1.setBorderPainted(true);
+		rmoviebtn1.setContentAreaFilled(false);
+		rmoviebtn1.setFocusPainted(false);
+		add(rmoviebtn1);
 
-		mbtn2 = new JButton("영화이름");
-		mbtn2.setBounds(260, 300, 190, 200);
-		mbtn2.setBorderPainted(true);
-		mbtn2.setContentAreaFilled(false);
-		mbtn2.setFocusPainted(false);
-		add(mbtn2);
+		rmoviebtn2 = new JButton("영화이름");
+		rmoviebtn2.setBounds(260, 300, 190, 200);
+		rmoviebtn2.setBorderPainted(true);
+		rmoviebtn2.setContentAreaFilled(false);
+		rmoviebtn2.setFocusPainted(false);
+		add(rmoviebtn2);
 
-		mbtn3 = new JButton("영화이름");
-		mbtn3.setBounds(480, 300, 190, 200);
-		mbtn3.setBorderPainted(true);
-		mbtn3.setContentAreaFilled(false); // 투명
-		mbtn3.setFocusPainted(false);
-		add(mbtn3);
+		rmoviebtn3 = new JButton("영화이름");
+		rmoviebtn3.setBounds(480, 300, 190, 200);
+		rmoviebtn3.setBorderPainted(true);
+		rmoviebtn3.setContentAreaFilled(false); // 투명
+		rmoviebtn3.setFocusPainted(false);
+		add(rmoviebtn3);
 		
 		reviewBtn = new JButton("전체 리뷰");
 		reviewBtn.setBounds(560, 560, 90, 70);
@@ -175,10 +199,10 @@ public class movieDetailView extends JFrame implements MouseListener {
 		jTable.getColumnModel().getColumn(2).setMaxWidth(200);
 		jTable.getColumnModel().getColumn(3).setMaxWidth(50);
 		
-		jScrPane = new JScrollPane(jTable);
+		jScrPane1 = new JScrollPane(jTable);
 		
-		jScrPane.setBounds(40, 560, 500, 73);
-		add(jScrPane);
+		jScrPane1.setBounds(40, 560, 500, 73);
+		add(jScrPane1);
 		
 		
 		
