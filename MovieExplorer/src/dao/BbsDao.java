@@ -188,9 +188,9 @@ public class BbsDao implements BbsDaoImpl {
 	}
 
 	@Override
-	public void deleteReview(int seq) { // 리뷰 삭제 DEL = 0 삭제 / 삭제하기버튼
+	public void deleteReview(int seq) { // 리뷰 삭제 DEL = 1 삭제 / 삭제하기버튼
 
-		String sql = " UPDATE REVIEW SET DEL = 0 WHERE SEQ_NUM = " + seq;
+		String sql = " UPDATE REVIEW SET DEL = 1 WHERE SEQ_NUM = " + seq;
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
