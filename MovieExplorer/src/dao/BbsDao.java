@@ -286,7 +286,7 @@ public class BbsDao implements BbsDaoImpl {
 		
 
 		String sql = " SELECT SEQ_NUM, TITLE, REVIEW_TITLE, REVIEW_CONTENT, ID, RECOMMEND, VIEWS,  "
-				+ " WRITEDATE, DEL FROM REVIEW WHERE ID LIKE '%" + name + "%' ";
+				+ " WRITEDATE, DEL FROM REVIEW WHERE ID = '" + name + "' ";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
