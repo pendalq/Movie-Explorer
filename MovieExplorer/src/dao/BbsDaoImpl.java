@@ -23,4 +23,6 @@ public interface BbsDaoImpl {
 	
 	public void updateRecommend(int seq); // 리뷰 게시판 추천버튼
 	
+	public void writeReview(String title, String id, String rTitle, String rContent); // 리뷰 글쓰기
+	
 }	

@@ -49,6 +49,11 @@ public class BbsService implements BbsServiceImpl{
 	public void updateRecommend(int seq) { // 리뷰게시판 추천버튼
 		dao.updateRecommend(seq);		
 	}
+
+	@Override
+	public void writeReview(String title, String id, String rTitle, String rContent) { // 리뷰 게시판 작성
+		dao.writeReview(title, id, rTitle, rContent);		
+	}
 	
 	
 	
