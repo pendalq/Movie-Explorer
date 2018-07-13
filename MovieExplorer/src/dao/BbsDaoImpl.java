@@ -25,4 +25,6 @@ public interface BbsDaoImpl {
 	
 	public void writeReview(String title, String id, String rTitle, String rContent); // 리뷰 글쓰기
 	
+	public List<BbsDto> selectWriterReview(String name); // 리뷰 작성자로 검색
+	
 }	

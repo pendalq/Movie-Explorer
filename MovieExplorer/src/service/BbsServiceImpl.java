@@ -24,4 +24,6 @@ public interface BbsServiceImpl {
 	public void updateRecommend(int seq); // 리뷰 게시판 추천버튼
 	
 	public void writeReview(String title, String id, String rTitle, String rContent); // 리뷰 글쓰기
+	
+	public List<BbsDto> selectWriterReview(String name); // 리뷰 작성자로 검색
 }

@@ -54,6 +54,11 @@ public class BbsService implements BbsServiceImpl{
 	public void writeReview(String title, String id, String rTitle, String rContent) { // 리뷰 게시판 작성
 		dao.writeReview(title, id, rTitle, rContent);		
 	}
+
+	@Override
+	public List<BbsDto> selectWriterReview(String name) {
+		return dao.selectWriterReview(name);
+	}
 	
 	
 	

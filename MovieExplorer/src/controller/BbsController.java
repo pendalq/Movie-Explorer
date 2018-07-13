@@ -45,6 +45,10 @@ public class BbsController {
 	public void writeReview(String title, String id, String rTitle, String rContent) { // 리뷰 글쓰기
 		bService.writeReview(title, id, rTitle, rContent);
 	}
+	
+	public List<BbsDto> selectWriterReview(String name){ // 리뷰게시판 작성자로 검색
+		return bService.selectWriterReview(name);
+	}
 }
 
 

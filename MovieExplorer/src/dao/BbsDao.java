@@ -281,6 +281,37 @@ public class BbsDao implements BbsDaoImpl {
 		
 	}
 
+	@Override
+	public List<BbsDto> selectWriterReview(String name) {
+		
+
+		String sql = " SELECT SEQ_NUM, TITLE, REVIEW_TITLE, REVIEW_CONTENT, ID, RECOMMEND, VIEWS,  "
+				+ " WRITEDATE, DEL FROM REVIEW WHERE ID LIKE '%" + name + "%' ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		List<BbsDto> list = new ArrayList<>();
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				list.add(new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getInt(9)));
+			}
+			rs = psmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+
+		return list;
+	}
+
 }
 
 
