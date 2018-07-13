@@ -198,7 +198,7 @@ public class BbsDao implements BbsDaoImpl {
 		conn = DBConnection.makeConnection();
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.executeQuery();
+			psmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -219,7 +219,7 @@ public class BbsDao implements BbsDaoImpl {
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
-			psmt.executeQuery();
+			psmt.executeUpdate();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -241,7 +241,7 @@ public class BbsDao implements BbsDaoImpl {
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
-			psmt.executeQuery();
+			psmt.executeUpdate();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -251,4 +251,63 @@ public class BbsDao implements BbsDaoImpl {
 		}
 	}
 
+	@Override
+	public void writeReview(String title, String id, String rTitle, String rContent) { // 리뷰 게시판 작성 
+		
+		String sql = " INSERT INTO REVIEW "
+				+ " VALUES (SEQ_NUM.NEXTVAL, ? , ? , ? , ? , 0 , 0 , SYSDATE , 0) ";
+		
+		Connection conn =null;
+		PreparedStatement psmt = null;
+		
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, title);
+			psmt.setString(2, id);
+			psmt.setString(3, rTitle);
+			psmt.setString(4, rContent);
+			
+			psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+		
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

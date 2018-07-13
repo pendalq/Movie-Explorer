@@ -41,4 +41,28 @@ public class BbsController {
 	public void updateRecommend(int seq) {// 리뷰 게시판 추천버튼
 		bService.updateRecommend(seq);
 	}
+	
+	public void writeReview(String title, String id, String rTitle, String rContent) { // 리뷰 글쓰기
+		bService.writeReview(title, id, rTitle, rContent);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

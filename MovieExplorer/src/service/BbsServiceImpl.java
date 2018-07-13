@@ -22,4 +22,6 @@ public interface BbsServiceImpl {
 	public void updateComplete(int seq, String title, String Content); // 수정완료 버튼
 	
 	public void updateRecommend(int seq); // 리뷰 게시판 추천버튼
+	
+	public void writeReview(String title, String id, String rTitle, String rContent); // 리뷰 글쓰기
 }
