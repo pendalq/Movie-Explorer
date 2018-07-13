@@ -25,4 +25,8 @@ public class BbsController {
 	public List<BbsDto> getBbsList(String title){
 		return bService.getBbsList(title);
 	}
+	
+	public void inceamentRec(int seq) {
+		bService.updateRecommend(seq);
+	}
 }

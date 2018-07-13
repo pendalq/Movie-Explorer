@@ -102,6 +102,8 @@ public class BbsDao implements BbsDaoImpl {
 			sql += ",? ";
 		}
 
+		
+		
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -111,8 +113,8 @@ public class BbsDao implements BbsDaoImpl {
 			psmt = conn.prepareStatement(sql);
 			w = 0;
 			while (w < size) {
-				psmt.setString(w+1, genre[w]);
-				psmt.setString(w+size+1, genre[w]);
+				psmt.setString(w + 1, genre[w]);
+				psmt.setString(w + size + 1, genre[w]);
 			}
 			rs = psmt.executeQuery();
 
@@ -127,23 +129,23 @@ public class BbsDao implements BbsDaoImpl {
 	}
 
 	@Override
-	public List<BbsDto> getBbsList(String title) {
+	public List<BbsDto> getBbsList(String title) { // 리뷰 게시판 리스트가져오기
 		String sql = " SELECT SEQ_NUM, TITLE, REVIEW_TITLE, REVIEW_CONTENT, ID, RECOMMEND, VIEWS,  "
 				+ " WRITEDATE, DEL FROM REVIEW WHERE TITLE = '" + title + "' ";
-		
+
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		
+
 		List<BbsDto> list = new ArrayList<>();
-		
-		
+
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
-				list.add(new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getInt(9)));
+				list.add(new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getInt(9)));
 			}
 			rs = psmt.executeQuery();
 
@@ -153,42 +155,136 @@ public class BbsDao implements BbsDaoImpl {
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-		
-		
+
 		return list;
+	}
+
+	@Override
+	public List<BbsDto> selectReview(String title) { // 리뷰 제목으로 검색
+
+		String sql = " SELECT SEQ_NUM, TITLE, REVIEW_TITLE, REVIEW_CONTENT, ID, RECOMMEND, VIEWS,  "
+				+ " WRITEDATE, DEL FROM REVIEW WHERE TITLE LIKE '%" + title + "%' ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		List<BbsDto> list = new ArrayList<>();
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				list.add(new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getInt(9)));
+			}
+			rs = psmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+
+		return list;
+	}
+
+	@Override
+	public void deleteReview(int seq) { // 리뷰 삭제 DEL = 1 삭제 / 삭제하기버튼
+
+		String sql = " UPDATE REVIEW SET DEL = 1 WHERE SEQ_NUM = " + seq;
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+
+		conn = DBConnection.makeConnection();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+	}
+
+	@Override
+	public void updateComplete(int seq, String title, String Content) {// 수정 완료버튼
+
+		String sql = " UPDATE REVIEW SET REVIEW_TITLE = '" + title + "', REVIEW_CONTENT = '" + Content + "' "
+				+ " WHERE SEQ_NUM = " + seq;
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			psmt.executeQuery();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+
 	}
 	
 	
 
-	
+	@Override
+	public boolean updateRecommend(int seq, int reco) { // 리뷰 게시판 추천버튼
+
+		String sql = " UPDATE REVIEW SET RECOMMEND = " + (reco+1) + " WHERE SEQ_NUM = " + seq;
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		int count = 0;
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			count = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+		
+		return count>0? true:false;
+	}
+
+	@Override
+	public int getRecommend(int seq) {
+		String sql = " SELECT RECOMMEND FROM RWVIEW WHERE SEQ_NUM = " + seq + " ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		int rec = 0;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				rec = rs.getInt(1);
+			}
+					
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+		
+		return rec;
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

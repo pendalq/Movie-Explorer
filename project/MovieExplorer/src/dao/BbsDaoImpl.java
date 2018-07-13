@@ -15,4 +15,14 @@ public interface BbsDaoImpl {
 	
 	public List<BbsDto> getBbsList(String title);
 	
+	public List<BbsDto> selectReview(String title);
+	
+	public void deleteReview(int seq); // 리뷰 삭제  DEL = 0 삭제 삭제하기버튼
+	
+	public void updateComplete(int seq, String title, String Content); // 수정완료 버튼
+	
+	public int getRecommend(int seq);
+	
+	public boolean updateRecommend(int seq, int reco); // 리뷰 게시판 추천버튼
+	
 }	
