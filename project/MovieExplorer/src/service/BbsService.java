@@ -29,6 +29,27 @@ public class BbsService implements BbsServiceImpl{
 	public List<BbsDto> getBbsList(String title) {
 		return dao.getBbsList(title);
 	}
+
+	@Override
+	public List<BbsDto> selectReview(String title) {
+		return dao.selectReview(title);
+	}
+
+	@Override
+	public void deleteReview(int seq) { // DEL = 0 삭제
+		 dao.deleteReview(seq);
+	}
+
+	@Override
+	public void updateComplete(int seq, String title, String Content) {
+		dao.updateComplete(seq, title, Content);		
+	}
+
+	@Override
+	public void updateRecommend(int seq) { // 리뷰게시판 추천버튼
+		dao.updateRecommend(seq, dao.getRecommend(seq));		
+	}
+	
 	
 	
 }

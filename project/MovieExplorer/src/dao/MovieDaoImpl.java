@@ -14,5 +14,11 @@ public interface MovieDaoImpl {
 	
 	public List<String> recommendMovie(String title);
 	
-	public MovieDto getRecMovieDto(String title);
+	public MovieDto getMovieDto(String title);
+	
+	public List<String> gradePoint(); // 메인뷰 영화 평점 랭킹
+	
+	public List<String> goodPoint(); // 메인뷰 영화 추천 랭킹
+	
+	public List<MovieDto> nowScreening(); // 현재상영작출력
 }

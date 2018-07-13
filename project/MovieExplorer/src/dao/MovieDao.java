@@ -53,8 +53,7 @@ public class MovieDao implements MovieDaoImpl {
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
-		
-		
+
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
@@ -70,24 +69,22 @@ public class MovieDao implements MovieDaoImpl {
 
 	@Override
 	public List<String> recommendMovie(String title) { // 영화 디테일뷰 장르에따른 3가지 추천영화
-		
-		String sql = " SELECT G.RELATION_MOV_1, G.RELATION_MOV_2, G.RELATION_MOV_3 "
-				+ " FROM MOVIE M, GENRE G "
-				+ " WHERE M.GENRE_1 = G.GENRE_NAME AND M.GENRE_2 = G.GENRE_NAME "
-				+ " AND TITLE = '" + title + "' ";
-		
+
+		String sql = " SELECT G.RELATION_MOV_1, G.RELATION_MOV_2, G.RELATION_MOV_3 " + " FROM MOVIE M, GENRE G "
+				+ " WHERE M.GENRE_1 = G.GENRE_NAME AND M.GENRE_2 = G.GENRE_NAME " + " AND TITLE = '" + title + "' ";
+
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		
+
 		List<String> list = new ArrayList<>();
-		
+
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				list.add(rs.getString(1));
 				list.add(rs.getString(2));
 				list.add(rs.getString(3));
@@ -96,39 +93,126 @@ public class MovieDao implements MovieDaoImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
 
 	@Override
-	public MovieDto getRecMovieDto(String title) {
+	public MovieDto getMovieDto(String title) {
 		String sql = " SELECT TITLE, DIRECTOR, ACTOR_1, ACTOR_2, ACTOR_3, ACTOR_4, "
 				+ " SYNOP, GOOD_POINT, GENRE_1, GENRE_2, GRADE_POINT, " + " NOW_SCREENING FROM MOVIE"
-						+ " WHERE TITLE = '" + title + "' ";
-		
+				+ " WHERE TITLE = '" + title + "' ";
+
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		
+
 		MovieDto dto = null;
-		
+
 		try {
 			conn = DBConnection.makeConnection();
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				dto = new MovieDto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getDouble(11),
-						rs.getInt(12));
+						rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getString(10),
+						rs.getDouble(11), rs.getInt(12));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return dto;
+
+	}
+
+	@Override
+	public List<String> gradePoint() { // 메인뷰 영화 평점 랭킹
+
+		String sql = " SELECT TITLE FROM MOVIE ORDER BY GRADE_POINT ";
+		List<String> list = new ArrayList<>();
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<String> goodPoint() {
+
+		String sql = " SELECT TITLE FROM MOVIE ORDER BY GOOD_POINT ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		ArrayList<String> list = new ArrayList<>();
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<MovieDto> nowScreening() { // 현재 상영작
+		String sql = " SELECT TITLE, DIRECTOR, ACTOR_1, ACTOR_2, ACTOR_3, ACTOR_4, " + 
+						" SYNOP, GOOD_POINT, GENRE_1, GENRE_2, GRADE_POINT, " +
+						" NOW_SCREENING FROM MOVIE " + 
+						" WHERE NOW_SCREENING = " + 1; 
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
 		
+		List<MovieDto> list = new ArrayList<>(); 
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				list.add(new MovieDto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getString(10),
+						rs.getDouble(11), rs.getInt(12)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		
+		return list;
 	}
 
 }

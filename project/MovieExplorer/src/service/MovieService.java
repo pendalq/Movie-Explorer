@@ -23,9 +23,34 @@ public class MovieService implements MovieServiceImpl {
 		List<MovieDto> rmlist = new ArrayList<>();
 		
 		for (int i = 0; i < list.size(); i++) {
-			rmlist.add(dao.getRecMovieDto(list.get(i)));
+			rmlist.add(dao.getMovieDto(list.get(i)));
 		}
 		return rmlist;
+	}
+
+	@Override
+	public List<MovieDto> getGradeRankingList() { // 영화 평점 랭킹
+		List<String> list = dao.gradePoint();
+		List<MovieDto> rlist = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			rlist.add(dao.getMovieDto(list.get(i)));
+		}
+		return rlist;
+	}
+
+	@Override
+	public List<MovieDto> getGoodpointRankingList() { // 영화 추천수 랭킹
+		List<String> list = dao.goodPoint();
+		List<MovieDto> rlist = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			rlist.add(dao.getMovieDto(list.get(i)));
+		}
+		return rlist;
+	}
+
+	@Override
+	public List<MovieDto> nowScreening() { // 현재상영작 출력
+		return dao.nowScreening();
 	}
 	
 	
